@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+
+set -o errexit
+# set -x
+
+if [ $# -eq 0 ]; then
+  echo "Usage: buildwith modifier-1 ..."
+  exit 1
+fi
+
+CHECKOUT="$(git rev-parse --show-toplevel)"
+
+MODIFIERS="$(printf '%s\n' "$@" | sort | tr '\n' ' ')"
+
+MOZCONFIGS="$HOME/.mozconfigs"
+MOZCONFIG="$CHECKOUT/mozconfig"
+OBJDIR="$CHECKOUT/obj"
+
+echo "MOZCONFIGS=$MOZCONFIGS" > "$MOZCONFIG"
+echo "mk_add_options AUTOCLOBBER=1" >> "$MOZCONFIG"
+
+if [ -d "$CHECKOUT/comm" ]; then
+  echo "Saw comm directory, assuming you want to build thunderbird..."
+  echo "ac_add_options --enable-application=comm/mail" >> "$MOZCONFIG"
+fi
+
+for modifier in $MODIFIERS compile-environment; do
+  if [ ! -f "$MOZCONFIGS/$modifier" ]; then
+    echo "No config named $modifier"
+    exit 1
+  fi
+  if [ "$modifier" != "compile-environment" ]; then
+    OBJDIR+="-$modifier"
+  fi
+  cat "$MOZCONFIGS/$modifier" >> "$MOZCONFIG"
+done
+
+echo "mk_add_options MOZ_OBJDIR=$OBJDIR" >> "$MOZCONFIG"
+cat "$MOZCONFIG"

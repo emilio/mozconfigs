@@ -8,11 +8,13 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
-CHECKOUT="$(git rev-parse --show-toplevel)"
+CHECKOUT="$(git rev-parse --show-toplevel || hg root)"
+BASEDIR=$(dirname "$0")
 
 MODIFIERS="$(printf '%s\n' "$@" | sort | tr '\n' ' ')"
 
-MOZCONFIGS="$HOME/.mozconfigs"
+MOZCONFIGS="$(realpath $(dirname "$0")/../mozconfigs)"
+
 MOZCONFIG="$CHECKOUT/mozconfig"
 OBJDIR="$CHECKOUT/obj"
 

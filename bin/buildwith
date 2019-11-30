@@ -8,8 +8,7 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
-CHECKOUT="$(git rev-parse --show-toplevel || hg root)"
-BASEDIR=$(dirname "$0")
+CHECKOUT="$(git rev-parse --show-toplevel 2>/dev/null || hg root)"
 
 MODIFIERS="$(printf '%s\n' "$@" | sort | tr '\n' ' ')"
 

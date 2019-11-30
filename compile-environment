@@ -1,10 +1,10 @@
 if [ -z $ARTIFACT_BUILD ]; then
   if [ -z $ICECC ]; then
-    export HOST_CC="/home/emilio/.mozbuild/clang/bin/clang"
-    export HOST_CXX="/home/emilio/.mozbuild/clang/bin/clang++"
-    export AS="/home/emilio/.mozbuild/clang/bin/clang"
-    export CC="/home/emilio/.mozbuild/clang/bin/clang"
-    export CXX="/home/emilio/.mozbuild/clang/bin/clang++"
+    export HOST_CC="$HOME/.mozbuild/clang/bin/clang"
+    export HOST_CXX="$HOME/.mozbuild/clang/bin/clang++"
+    export AS="$HOME/.mozbuild/clang/bin/clang"
+    export CC="$HOME/.mozbuild/clang/bin/clang"
+    export CXX="$HOME/.mozbuild/clang/bin/clang++"
     ac_add_options --with-ccache=sccache
   fi
 fi

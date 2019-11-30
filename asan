@@ -1,0 +1,8 @@
+ac_add_options --enable-address-sanitizer
+ac_add_options --disable-jemalloc
+ac_add_options --disable-crashreporter
+ac_add_options --disable-elf-hack
+
+export CFLAGS="-fsanitize=address -Dxmalloc=mymalloc -fPIC"
+export CXXFLAGS="-fsanitize=address -Dxmalloc=mymalloc -fPIC"
+export LDFLAGS="-fsanitize=address"

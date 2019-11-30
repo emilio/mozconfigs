@@ -1,0 +1,3 @@
+. "$MOZCONFIGS/android"
+
+ac_add_options --target=x86_64-linux-android

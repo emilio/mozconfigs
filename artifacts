@@ -1,0 +1,3 @@
+ac_add_options --enable-artifact-builds
+
+ARTIFACT_BUILD=1

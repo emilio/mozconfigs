@@ -1,0 +1,3 @@
+. "$MOZCONFIGS/android"
+
+ac_add_options --target=i686-linux-android

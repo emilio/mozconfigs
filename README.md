@@ -17,3 +17,6 @@ $ buildwith debug asan noopt
 ```
 
 For an unoptimized asan build. And so on.
+
+Hg repo: https://hg.mozilla.org/users/emilio_crisal.io/mozconfigs/
+Git repo: https://github.com/emilio/mozconfigs

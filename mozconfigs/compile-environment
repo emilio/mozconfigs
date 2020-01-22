@@ -1,7 +1,15 @@
 if [ -z $ARTIFACT_BUILD ]; then
   if [ -z $ICECC ]; then
-    export CC="/usr/bin/clang"
-    export CXX="/usr/bin/clang++"
+    if [ ! -z $GCC ]; then
+      export CC="/usr/bin/gcc"
+      export CXX="/usr/bin/g++"
+    elif [ ! -z $SYSTEM_CLANG ]; then
+      export CC="/usr/bin/clang"
+      export CXX="/usr/bin/clang++"
+    else
+      export CC="$HOME/.mozbuild/clang/bin/clang"
+      export CXX="$HOME/.mozbuild/clang/bin/clang++"
+    fi
     export AS="$CC"
     export HOST_CC="$CC"
     export HOST_CXX="$CXX"

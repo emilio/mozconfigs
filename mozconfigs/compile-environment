@@ -13,6 +13,8 @@ if [ -z $ARTIFACT_BUILD ]; then
     export AS="$CC"
     export HOST_CC="$CC"
     export HOST_CXX="$CXX"
-    ac_add_options --with-ccache=sccache
+    if [ -z $DISABLE_SCCACHE ]; then
+      ac_add_options --with-ccache=sccache
+    fi
   fi
 fi

@@ -1,20 +1,18 @@
-if [ -z $ARTIFACT_BUILD ]; then
-  if [ -z $ICECC ]; then
-    if [ ! -z $GCC ]; then
-      export CC="/usr/bin/gcc"
-      export CXX="/usr/bin/g++"
-    elif [ ! -z $SYSTEM_CLANG ]; then
-      export CC="/usr/bin/clang"
-      export CXX="/usr/bin/clang++"
-    else
-      export CC="$HOME/.mozbuild/clang/bin/clang"
-      export CXX="$HOME/.mozbuild/clang/bin/clang++"
-    fi
-    export AS="$CC"
-    export HOST_CC="$CC"
-    export HOST_CXX="$CXX"
-    if [ -z $DISABLE_SCCACHE ]; then
-      ac_add_options --with-ccache=sccache
-    fi
+if [ -z $ARTIFACT_BUILD ] && [ -z $ICECC ] && [ -z $CROSS_BUILD ]; then
+  if [ ! -z $GCC ]; then
+    export CC="/usr/bin/gcc"
+    export CXX="/usr/bin/g++"
+  elif [ ! -z $SYSTEM_CLANG ]; then
+    export CC="/usr/bin/clang"
+    export CXX="/usr/bin/clang++"
+  else
+    export CC="$MOZBUILD/clang/bin/clang"
+    export CXX="$MOZBUILD/clang/bin/clang++"
+  fi
+  export AS="$CC"
+  export HOST_CC="$CC"
+  export HOST_CXX="$CXX"
+  if [ -z $DISABLE_SCCACHE ]; then
+    ac_add_options --with-ccache=sccache
   fi
 fi

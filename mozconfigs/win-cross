@@ -1,0 +1,25 @@
+ac_add_options --target=x86_64-pc-mingw32
+
+CROSS_BUILD=1
+
+# win-cross contains:
+#  * win64-clang toolchain in clang
+#  * Windows SDK
+#  * DIA SDK
+#  * Visual C++ in visual-c
+#  * liblowercase built from build/liblowercase
+
+export WINDOWSSDKDIR="$MOZBUILD/win-cross/win-sdk"
+export DIA_SDK_PATH="$MOZBUILD/win-cross/dia-sdk"
+
+# TODO: Use a loop vfat device instead of this?
+mk_add_options "export LD_PRELOAD=$MOZBUILD/win-cross/liblowercase/liblowercase.so"
+mk_add_options "export LOWERCASE_DIRS=$MOZBUILD/win-cross"
+
+# TODO: Wine dir is temporary until https://www.winehq.org/pipermail/wine-devel/2020-May/166329.html is merged
+mk_add_options "export PATH=$HOME/src/wine/src:$MOZBUILD/win-cross/clang/bin:$MOZBUILD/win-cross/visual-c/tools/msvc/14.21.27702/bin/hostx64/x64:$PATH"
+
+export CC="$MOZBUILD/clang/bin/clang-cl"
+export CXX="$MOZBUILD/clang/bin/clang-cl"
+export HOST_CC="$MOZBUILD/clang/bin/clang"
+export HOST_CXX="$MOZBUILD/clang/bin/clang++"

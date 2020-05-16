@@ -1,0 +1,37 @@
+ac_add_options --target=x86_64-apple-darwin
+
+CROSS_BUILD=1
+
+# osx-cross contains:
+#  * https://github.com/phracker/MacOSX-SDKs
+#  * linux64-libdmg
+#  * linux64-cctools
+#  * linux64-libdmg
+#  * linux64-llvm-dsymutil
+#  * linux64-hfsplus
+
+CROSS="$MOZBUILD/osx-cross"
+CCTOOLS="$CROSS/cctools"
+CROSS_SYSROOT="$CROSS/MacOSX-SDKs/MacOSX10.11.sdk"
+MACOS_PRIVATE_FRAMEWORKS_DIR="$CROSS_SYSROOT/System/Library/PrivateFrameworks"
+export MACOS_SDK_DIR="$CROSS_SYSROOT"
+
+export BINDGEN_CFLAGS="-isysroot $CROSS_SYSROOT"
+export DSYMUTIL="$topsrcdir/build/macosx/llvm-dsymutil"
+
+# XXX Hack to avoid undefined __isOSVersionAtLeast...
+export LDFLAGS="-Wl,-U,___isOSVersionAtLeast"
+
+mk_add_options "export PATH=$CCTOOLS/bin:$CROSS/llvm-dsymutil/bin:$PATH"
+mk_add_options "export LD_LIBRARY_PATH=$MOZBUILD/clang/lib:$CCTOOLS/lib"
+mk_add_options "export REAL_DSYMUTIL=$CROSS/llvm-dsymutil/bin/dsymutil"
+
+export CC="$MOZBUILD/clang/bin/clang"
+export CXX="$MOZBUILD/clang/bin/clang++"
+export HOST_CC="$MOZBUILD/clang/bin/clang"
+export HOST_CXX="$MOZBUILD/clang/bin/clang++"
+
+# These are needed for packaging.
+export MKFSHFS="$CROSS/hfsplus-tools/newfs_hfs"
+export DMG_TOOL="$CROSS/dmg/dmg"
+export HFS_TOOL="$CROSS/dmg/hfsplus"

@@ -14,7 +14,6 @@ MODIFIERS="$(printf '%s\n' "$@" | sort | tr '\n' ' ')"
 
 MOZCONFIGS="$(realpath $(dirname "$0")/../mozconfigs)"
 
-OBJDIR="$CHECKOUT/obj"
 
 NEWLINE='
 '
@@ -32,6 +31,8 @@ if [ -d "$CHECKOUT/comm" ]; then
   echo "Saw comm directory, assuming you want to build thunderbird..."
   MOZCONFIG_CONTENT+="ac_add_options --enable-application=comm/mail"
   MOZCONFIG_CONTENT+="$NEWLINE"
+  MOZCONFIG_CONTENT+="ac_add_options --with-app-basename=Thunderbird"
+  MOZCONFIG_CONTENT+="$NEWLINE"
 fi
 
 IDENTIFIER=""
@@ -47,7 +48,8 @@ for modifier in $MODIFIERS compile-environment; do
   MOZCONFIG_CONTENT+="$NEWLINE"
 done
 
-MOZCONFIG_CONTENT+="mk_add_options MOZ_OBJDIR=$CHECKOUT/obj$IDENTIFIER"
+OBJDIR="$CHECKOUT/obj$IDENTIFIER"
+MOZCONFIG_CONTENT+="mk_add_options MOZ_OBJDIR=$OBJDIR"
 echo "$MOZCONFIG_CONTENT" > "$CHECKOUT/.mozconfig$IDENTIFIER"
 if [ -f "$CHECKOUT/.mozconfig" ]; then
   cat "$CHECKOUT/.mozconfig" > "$CHECKOUT/.mozconfig.bak"

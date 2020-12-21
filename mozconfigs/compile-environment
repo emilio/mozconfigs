@@ -13,6 +13,8 @@ if [ -z $ARTIFACT_BUILD ] && [ -z $ICECC ] && [ -z $CROSS_BUILD ]; then
   export HOST_CC="$CC"
   export HOST_CXX="$CXX"
   if [ -z $DISABLE_SCCACHE ]; then
-    ac_add_options --with-ccache=sccache
+    if [ `nproc` -lt 65 ]; then
+      ac_add_options --with-ccache=sccache
+    fi
   fi
 fi

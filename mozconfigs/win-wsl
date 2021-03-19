@@ -10,7 +10,9 @@ CROSS_BUILD=1
 #  followed https://computingforgeeks.com/how-to-install-wine-on-debian/ for
 #  the Debian instructions. Filed bug 1699777 for that.
 #
-#  ./mach run etc doesn't seem to work. Still debugging.
+#  ./mach run etc doesn't seem to work. Still debugging. Packaging and moving
+#  the executable to the windows drive does work. See also:
+#  https://github.com/microsoft/WSL/issues/6701
 
 export WINDOWSSDKDIR="/c/Program Files (x86)/Windows Kits/10"
 export DIA_SDK_PATH="/c/Progra~2/Micros~2/2019/Commun~1/DIA SDK/"
@@ -20,3 +22,7 @@ mk_add_options "export PATH=$EXTRA_PATH$PATH"
 EXTRA_PATH=""
 EXTRA_PATH="$EXTRA_PATH/c/Progra~2/Micros~2/2019/Commun~1/VC/Tools/MSVC/1427~1.291/bin/Hostx64/x64:"
 EXTRA_PATH="$EXTRA_PATH$MOZBUILD/win-cross/clang/bin:"
+
+# This is needed for packaging not to fail.
+ac_add_options --disable-updater
+ac_add_options --disable-maintenance-service

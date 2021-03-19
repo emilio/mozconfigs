@@ -14,14 +14,13 @@ CROSS_BUILD=1
 #  the executable to the windows drive does work. See also:
 #  https://github.com/microsoft/WSL/issues/6701
 
-export WINDOWSSDKDIR="/c/Program Files (x86)/Windows Kits/10"
-export DIA_SDK_PATH="/c/Progra~2/Micros~2/2019/Commun~1/DIA SDK/"
-EXTRA_PATH="/c/Progra~2/Micros~2/2019/Commun~1/VC/Tools/MSVC/1427~1.291/bin/Hostx64/x64:"
+export WINDOWSSDKDIR="/mnt/c/Program Files (x86)/Windows Kits/10"
+export DIA_SDK_PATH="/mnt/c/Progra~2/Micros~2/2019/Commun~1/DIA SDK/"
+
+EXTRA_PATH=""
+EXTRA_PATH="$EXTRA_PATH/mnt/c/Progra~2/Micros~2/2019/Commun~1/VC/Tools/MSVC/1427~1.291/bin/Hostx64/x64:"
 EXTRA_PATH="$EXTRA_PATH$MOZBUILD/win-cross/clang/bin:"
 mk_add_options "export PATH=$EXTRA_PATH$PATH"
-EXTRA_PATH=""
-EXTRA_PATH="$EXTRA_PATH/c/Progra~2/Micros~2/2019/Commun~1/VC/Tools/MSVC/1427~1.291/bin/Hostx64/x64:"
-EXTRA_PATH="$EXTRA_PATH$MOZBUILD/win-cross/clang/bin:"
 
 # This is needed for packaging not to fail.
 ac_add_options --disable-updater

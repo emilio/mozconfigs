@@ -3,7 +3,7 @@ ac_add_options --target=x86_64-pc-mingw32
 CROSS_BUILD=1
 
 # win-cross contains:
-#  * clang: downloaded with mach artifact toolchain --from-build win64-clang-cl
+#  * clang: downloaded with mach artifact toolchain --from-build win64-clang-12
 #    (optional if you use midl, see below)
 #  * win-sdk: Windows SDK
 #  * dia-sdk: DIA SDK

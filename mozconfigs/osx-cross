@@ -6,7 +6,6 @@ CROSS_BUILD=1
 #  * https://github.com/phracker/MacOSX-SDKs
 #  * linux64-libdmg
 #  * linux64-cctools-port
-#  * linux64-llvm-dsymutil
 #  * linux64-hfsplus
 #  * linux64-binutils (might not be needed)
 #  * linux64-clang-macosx-cross
@@ -17,7 +16,7 @@ CCTOOLS="$CROSS/cctools"
 CROSS_SYSROOT="$CROSS/MacOSX-SDKs/MacOSX10.12.sdk"
 export MACOS_SDK_DIR="$CROSS_SYSROOT"
 
-export DSYMUTIL="$CROSS/llvm-dsymutil/bin/dsymutil"
+export DSYMUTIL="$CROSS/clang/bin/dsymutil"
 
 mk_add_options "export PATH=$CCTOOLS/bin:$CROSS/binutils/bin:$CROSS/llvm-dsymutil/bin:$PATH"
 mk_add_options "export LD_LIBRARY_PATH=$MOZBUILD/clang/lib:$CCTOOLS/lib"

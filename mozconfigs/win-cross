@@ -9,6 +9,9 @@ CROSS_BUILD=1
 #  * dia-sdk: DIA SDK
 #  * visual-c: Visual C++
 #  * liblowercase: .so built from build/liblowercase
+#
+# If you hit any issues with being unable to find midl.exe or other executables
+# make sure that all .exe's in the win-cross directory have the executable bit set.
 
 export WINDOWSSDKDIR="$MOZBUILD/win-cross/win-sdk"
 export DIA_SDK_PATH="$MOZBUILD/win-cross/dia-sdk"

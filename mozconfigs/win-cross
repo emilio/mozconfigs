@@ -3,15 +3,30 @@ ac_add_options --target=x86_64-pc-mingw32
 CROSS_BUILD=1
 
 # win-cross contains:
-#  * clang: downloaded with mach artifact toolchain --from-build win64-clang-12
+#  * clang: downloaded with mach artifact toolchain --from-build win64-clang
 #    (optional if you use midl, see below)
-#  * win-sdk: Windows SDK
-#  * dia-sdk: DIA SDK
-#  * visual-c: Visual C++
+#  * win-sdk: Windows SDK (typically at C:/Program Files (x86)/Windows Kits/10)
+#  * dia-sdk: DIA SDK (typically at C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/DIA SDK)
+#  * visual-c: Visual C++ (typically at C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC)
 #  * liblowercase: .so built from build/liblowercase
 #
+# Also, note that all the paths in win-sdk etc need to be lowercase. If you
+# copied them and there are uppercase directories, you might want to turn them
+# lowercase like:
+#
+#   $ zip -0 -r win-sdk.zip win-sdk/*
+#   $ rm -rf win-sdk
+#   $ unzip -LL win-sdk.zip
+#   $ rm win-sdk.zip
+#
+# Or as a one-liner:
+#
+#   $ for d in win-sdk dia-sdk visual-c; do zip -0 -r $d.zip $d/* && rm -rf $d && unzip -LL $d.zip && rm $d.zip; done
+#
 # If you hit any issues with being unable to find midl.exe or other executables
-# make sure that all .exe's in the win-cross directory have the executable bit set.
+# make sure that all .exe's in the win-cross directory have the executable bit set:
+#
+#   $ find . -name '*.exe' -exec chmod +x {} \;
 
 export WINDOWSSDKDIR="$MOZBUILD/win-cross/win-sdk"
 export DIA_SDK_PATH="$MOZBUILD/win-cross/dia-sdk"

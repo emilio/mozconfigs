@@ -23,8 +23,8 @@ mk_add_options "export LD_LIBRARY_PATH=$MOZBUILD/clang/lib:$CCTOOLS/lib"
 
 export CC="$CROSS/clang/bin/clang"
 export CXX="$CROSS/clang/bin/clang++"
-export HOST_CC="$CROSS/clang/bin/clang"
-export HOST_CXX="$CROSS/clang/bin/clang++"
+export HOST_CC="$MOZBUILD/clang/bin/clang"
+export HOST_CXX="$MOZBUILD/clang/bin/clang++"
 
 # These are needed for packaging.
 export MKFSHFS="$CROSS/hfsplus-tools/newfs_hfs"

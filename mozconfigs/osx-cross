@@ -8,7 +8,6 @@ CROSS_BUILD=1
 #  * linux64-cctools-port
 #  * linux64-hfsplus
 #  * linux64-binutils (might not be needed)
-#  * linux64-clang-macosx-cross
 
 CROSS="$MOZBUILD/osx-cross"
 CCTOOLS="$CROSS/cctools"
@@ -21,10 +20,10 @@ export DSYMUTIL="$CROSS/clang/bin/dsymutil"
 mk_add_options "export PATH=$CCTOOLS/bin:$CROSS/binutils/bin:$CROSS/llvm-dsymutil/bin:$PATH"
 mk_add_options "export LD_LIBRARY_PATH=$MOZBUILD/clang/lib:$CCTOOLS/lib"
 
-export CC="$CROSS/clang/bin/clang"
-export CXX="$CROSS/clang/bin/clang++"
 export HOST_CC="$MOZBUILD/clang/bin/clang"
 export HOST_CXX="$MOZBUILD/clang/bin/clang++"
+export CC="$HOST_CC"
+export CXX="$HOST_CXX"
 
 # These are needed for packaging.
 export MKFSHFS="$CROSS/hfsplus-tools/newfs_hfs"

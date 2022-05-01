@@ -15,9 +15,9 @@ CCTOOLS="$CROSS/cctools"
 CROSS_SYSROOT="$CROSS/MacOSX-SDKs/MacOSX10.12.sdk"
 export MACOS_SDK_DIR="$CROSS_SYSROOT"
 
-export DSYMUTIL="$CROSS/clang/bin/dsymutil"
+export DSYMUTIL="$MOZBUILD/clang/bin/dsymutil"
 
-mk_add_options "export PATH=$CCTOOLS/bin:$CROSS/binutils/bin:$CROSS/llvm-dsymutil/bin:$PATH"
+mk_add_options "export PATH=$CCTOOLS/bin:$CROSS/binutils/bin:$PATH"
 mk_add_options "export LD_LIBRARY_PATH=$MOZBUILD/clang/lib:$CCTOOLS/lib"
 
 export HOST_CC="$MOZBUILD/clang/bin/clang"

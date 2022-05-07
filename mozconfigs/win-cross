@@ -3,8 +3,6 @@ ac_add_options --target=x86_64-pc-mingw32
 CROSS_BUILD=1
 
 # win-cross contains:
-#  * clang: downloaded with mach artifact toolchain --from-build win64-clang
-#    (optional if you use midl, see below)
 #  * win-sdk: Windows SDK (typically at C:/Program Files (x86)/Windows Kits/10)
 #  * dia-sdk: DIA SDK (typically at C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/DIA SDK)
 #  * visual-c: Visual C++ (typically at C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC)

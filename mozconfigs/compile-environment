@@ -21,4 +21,8 @@ if [ -z $ARTIFACT_BUILD ] && [ -z $ICECC ] && [ -z $CROSS_BUILD ]; then
       ac_add_options --with-ccache=sccache
     fi
   fi
+
+  if [ ! -z $(which mold 2>/dev/null) ]; then
+    ac_add_options --enable-linker=mold
+  fi
 fi

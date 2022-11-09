@@ -1,6 +1,12 @@
-ac_add_options --target=x86_64-pc-mingw32
-
 CROSS_BUILD=1
+
+ARCH=${ARCH:x64}
+
+if [ "$ARCH" = "x64" ]; then
+  ac_add_options --target=x86_64-pc-mingw32
+else
+  ac_add_options --target=i686-pc-mingw32
+fi
 
 # win-cross contains:
 #
@@ -15,7 +21,7 @@ export WINDOWSSDKDIR="$MOZBUILD/win-cross/vs/windows kits/10"
 mk_add_options "export LD_PRELOAD=$MOZBUILD/win-cross/liblowercase/liblowercase.so"
 mk_add_options "export LOWERCASE_DIRS=$MOZBUILD/win-cross"
 
-EXTRA_PATH="$MOZBUILD/win-cross/vs/vc/tools/msvc/14.29.30133/bin/hostx64/x64:"
+EXTRA_PATH="$MOZBUILD/win-cross/vs/vc/tools/msvc/14.29.30133/bin/hostx64/$ARCH:"
 
 mk_add_options "export PATH=$EXTRA_PATH$PATH"
 

@@ -4,12 +4,14 @@ fi
 
 DEFAULT_CC="clang"
 DEFAULT_CXX="clang++"
-BIN_SUFFIX=""
+SCCACHE_PATH="$MOZBUILD/sccache/sccache"
+OVERRIDE_AS=1
 if [ -d "/c/mozilla-build" ]; then
   export PATH="/c/mozilla-build/msys2/usr/bin:$PATH"
   DEFAULT_CC="clang-cl"
   DEFAULT_CXX="clang-cl"
-  BIN_SUFFIX=".exe"
+  SCCACHE_PATH="$(cygpath -w $SCCACHE_PATH)"
+  OVERRIDE_AS=0
 fi
 
 if [ -z $ARTIFACT_BUILD ] && [ -z $ICECC ] && [ -z $CROSS_BUILD ]; then
@@ -23,12 +25,14 @@ if [ -z $ARTIFACT_BUILD ] && [ -z $ICECC ] && [ -z $CROSS_BUILD ]; then
     export CC="$MOZBUILD/clang/bin/$DEFAULT_CC"
     export CXX="$MOZBUILD/clang/bin/$DEFAULT_CXX"
   fi
-  export AS="$CC"
+  if [ $OVERRIDE_AS -eq 1 ]; then
+    export AS="$CC"
+  fi
   export HOST_CC="$CC"
   export HOST_CXX="$CXX"
   if [ -z $DISABLE_SCCACHE ]; then
     if [ `nproc` -lt 65 ]; then
-      ac_add_options --with-ccache=$MOZBUILD/sccache/sccache$BIN_SUFFIX
+      ac_add_options --with-ccache=$SCCACHE_PATH
     fi
   fi
 

@@ -2,41 +2,22 @@ if [ -z $ARTIFACT_BUILD ] && [ ! -z $ANDROID_BUILD ]; then
   ac_add_options --with-android-ndk=$MOZBUILD/android-ndk-r21d
 fi
 
-DEFAULT_CC="clang"
-DEFAULT_CXX="clang++"
 SCCACHE_PATH="$MOZBUILD/sccache/sccache"
-OVERRIDE_AS=1
 if [ -d "/c/mozilla-build" ]; then
-  export PATH="/c/mozilla-build/msys2/usr/bin:$PATH"
-  DEFAULT_CC="clang-cl"
-  DEFAULT_CXX="clang-cl"
   SCCACHE_PATH="$(cygpath -w $SCCACHE_PATH)"
-  OVERRIDE_AS=0
 fi
 
-if [ -z $ARTIFACT_BUILD ] && [ -z $ICECC ] && [ -z $CROSS_BUILD ]; then
-  if [ ! -z $GCC ]; then
-    export CC="/usr/bin/gcc"
-    export CXX="/usr/bin/g++"
-  elif [ ! -z $SYSTEM_CLANG ]; then
-    export CC="/usr/bin/clang"
-    export CXX="/usr/bin/clang++"
-  else
-    export CC="$MOZBUILD/clang/bin/$DEFAULT_CC"
-    export CXX="$MOZBUILD/clang/bin/$DEFAULT_CXX"
+if [ -z $ARTIFACT_BUILD ]; then
+  if [ ! -z "$CC" ]; then
+    export HOST_CC="$CC"
+    export HOST_CXX="$CXX"
   fi
-  if [ $OVERRIDE_AS -eq 1 ]; then
-    export AS="$CC"
-  fi
-  export HOST_CC="$CC"
-  export HOST_CXX="$CXX"
   if [ -z $DISABLE_SCCACHE ]; then
     if [ `nproc` -lt 65 ]; then
       ac_add_options --with-ccache=$SCCACHE_PATH
     fi
   fi
-
-  if [ ! -z $(which mold 2>/dev/null) ]; then
+  if command -v mold >/dev/null; then
     ac_add_options --enable-linker=mold
   fi
 fi

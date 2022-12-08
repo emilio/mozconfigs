@@ -9,15 +9,19 @@ fi
 
 if [ -z $ARTIFACT_BUILD ]; then
   if [ ! -z "$CC" ]; then
-    export HOST_CC="$CC"
-    export HOST_CXX="$CXX"
+    if [ -z "$HOST_CC" ]; then
+      export HOST_CC="$CC"
+    fi
+    if [ -z "$HOST_CXX" ]; then
+      export HOST_CXX="$CXX"
+    fi
   fi
   if [ -z $DISABLE_SCCACHE ]; then
     if [ `nproc` -lt 65 ]; then
       ac_add_options --with-ccache=$SCCACHE_PATH
     fi
   fi
-  if [ -z "$CROSS_BUILD" ]; then
+  if [ -z $CROSS_BUILD ]; then
     if command -v mold >/dev/null; then
       ac_add_options --enable-linker=mold
     fi

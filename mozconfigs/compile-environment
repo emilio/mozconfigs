@@ -17,7 +17,9 @@ if [ -z $ARTIFACT_BUILD ]; then
       ac_add_options --with-ccache=$SCCACHE_PATH
     fi
   fi
-  if command -v mold >/dev/null; then
-    ac_add_options --enable-linker=mold
+  if [ -z "$CROSS_BUILD" ]; then
+    if command -v mold >/dev/null; then
+      ac_add_options --enable-linker=mold
+    fi
   fi
 fi

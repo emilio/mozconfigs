@@ -58,7 +58,6 @@ fi
 
 ln -s "$CHECKOUT/.mozconfig$IDENTIFIER" "$CHECKOUT/.mozconfig"
 cat "$CHECKOUT/.mozconfig"
-if [ ! -f "$OBJDIR/config.status" ]; then
-  "$CHECKOUT/mach" configure
-fi
+# Build the export tier, which ensures that configure is up to date.
+"$CHECKOUT/mach" build export
 "$CHECKOUT/mach" build-backend -b Clangd && rm -f "$CHECKOUT/compile_commands.json" && ln -s "$OBJDIR/clangd/compile_commands.json" "$CHECKOUT/compile_commands.json"

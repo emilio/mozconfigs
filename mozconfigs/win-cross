@@ -6,13 +6,4 @@ else
   ac_add_options --target=$TARGET
 fi
 
-# win-cross contains:
-#
-#  * vs: Generated using ./mach python --virtualenv build build/vs/pack_vs.py build/vs/vs2019.yaml -o vs.tar.zst
-#
-# Note that you need the msitools package for the mach command above to
-# succeed.
-#
-# Other things needed for packaging:
-#  * 7z needs to be on your PATH, or specified with export 7Z
-export WINSYSROOT="$MOZBUILD/win-cross/vs"
+# For packaging, 7z needs to be on your PATH, or specified with export 7Z

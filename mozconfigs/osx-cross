@@ -23,6 +23,6 @@ export CC="$HOST_CC"
 export CXX="$HOST_CXX"
 
 # These are needed for packaging.
-export MKFSHFS="$CROSS/hfsplus-tools/newfs_hfs"
+export MKFSHFS="$CROSS/hfsplus/newfs_hfs"
 export DMG_TOOL="$CROSS/dmg/dmg"
 export HFS_TOOL="$CROSS/dmg/hfsplus"

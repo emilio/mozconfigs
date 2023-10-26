@@ -3,7 +3,7 @@ if [ -z $ARTIFACT_BUILD ] && [ ! -z $ANDROID_BUILD ]; then
 fi
 
 SCCACHE_PATH="$MOZBUILD/sccache/sccache"
-if [ -d "/c/mozilla-build" ]; then
+if command -v cygpath >/dev/null; then
   SCCACHE_PATH="$(cygpath -w $SCCACHE_PATH)"
 fi
 
@@ -17,9 +17,7 @@ if [ -z $ARTIFACT_BUILD ]; then
     fi
   fi
   if [ -z $DISABLE_SCCACHE ]; then
-    if [ `nproc` -lt 65 ]; then
-      ac_add_options --with-ccache=$SCCACHE_PATH
-    fi
+    ac_add_options --with-ccache=$SCCACHE_PATH
   fi
   if [ -z $CROSS_BUILD ]; then
     if command -v mold >/dev/null; then

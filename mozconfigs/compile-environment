@@ -17,7 +17,9 @@ if [ -z $ARTIFACT_BUILD ]; then
     fi
   fi
   if [ -z $DISABLE_SCCACHE ]; then
-    ac_add_options --with-ccache=$SCCACHE_PATH
+    if [ -f "$SCCACHE_PATH" ]; then
+      ac_add_options --with-ccache=$SCCACHE_PATH
+    fi
   fi
   if [ -z $CROSS_BUILD ]; then
     if command -v mold >/dev/null; then

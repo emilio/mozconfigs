@@ -1,5 +1,6 @@
 if [ -z $ARTIFACT_BUILD ] && [ ! -z $ANDROID_BUILD ]; then
-  ac_add_options --with-android-ndk=$MOZBUILD/android-ndk-r21d
+  ANDROID_NDK_DIR=$(ls $MOZBUILD | grep '^android-ndk-')
+  ac_add_options --with-android-ndk=$MOZBUILD/$ANDROID_NDK_DIR
 fi
 
 SCCACHE_PATH="$MOZBUILD/sccache/sccache"

@@ -1,0 +1,5 @@
+SCCACHE_PATH="$MOZBUILD/sccache/sccache"
+if command -v cygpath >/dev/null; then
+  SCCACHE_PATH="$(cygpath -w $SCCACHE_PATH)"
+fi
+ac_add_options --with-ccache=$SCCACHE_PATH

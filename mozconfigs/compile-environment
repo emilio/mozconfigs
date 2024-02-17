@@ -3,11 +3,6 @@ if [ -z $ARTIFACT_BUILD ] && [ ! -z $ANDROID_BUILD ]; then
   ac_add_options --with-android-ndk=$MOZBUILD/$ANDROID_NDK_DIR
 fi
 
-SCCACHE_PATH="$MOZBUILD/sccache/sccache"
-if command -v cygpath >/dev/null; then
-  SCCACHE_PATH="$(cygpath -w $SCCACHE_PATH)"
-fi
-
 if [ -z $ARTIFACT_BUILD ]; then
   if [ ! -z "$CC" ]; then
     if [ -z "$HOST_CC" ]; then
@@ -15,11 +10,6 @@ if [ -z $ARTIFACT_BUILD ]; then
     fi
     if [ -z "$HOST_CXX" ]; then
       export HOST_CXX="$CXX"
-    fi
-  fi
-  if [ -z $DISABLE_SCCACHE ]; then
-    if [ -f "$SCCACHE_PATH" ]; then
-      ac_add_options --with-ccache=$SCCACHE_PATH
     fi
   fi
   if [ -z $CROSS_BUILD ]; then

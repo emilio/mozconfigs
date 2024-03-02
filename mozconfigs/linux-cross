@@ -1,0 +1,2 @@
+CROSS_BUILD=1
+ac_add_options --target=x86_64-pc-linux-gnu

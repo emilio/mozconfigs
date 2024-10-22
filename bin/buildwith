@@ -58,4 +58,4 @@ fi
 
 ln -s "$CHECKOUT/.mozconfig$IDENTIFIER" "$CHECKOUT/.mozconfig"
 cat "$CHECKOUT/.mozconfig"
-yes | "$CHECKOUT/mach" ide vscode --no-interactive
+"$CHECKOUT/mach" configure && "$CHECKOUT/mach" ide vscode --no-interactive

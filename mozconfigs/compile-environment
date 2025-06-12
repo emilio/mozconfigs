@@ -1,5 +1,5 @@
 if [ -z $ARTIFACT_BUILD ] && [ ! -z $ANDROID_BUILD ]; then
-  ANDROID_NDK_DIR=$(ls $MOZBUILD | grep '^android-ndk-')
+  ANDROID_NDK_DIR=$(ls -r $MOZBUILD | grep '^android-ndk-' | head -n 1)
   ac_add_options --with-android-ndk=$MOZBUILD/$ANDROID_NDK_DIR
 fi
 

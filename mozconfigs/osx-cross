@@ -16,7 +16,7 @@ export CC="$HOST_CC"
 export CXX="$HOST_CXX"
 
 # These are needed for packaging.
-if [ -f "$CROSS/hfsplus/newfs_hfs"]; then
+if [ -f "$CROSS/hfsplus/newfs_hfs" ]; then
   export MKFSHFS="$CROSS/hfsplus/newfs_hfs"
 fi
 if [ -f "$CROSS/dmg/dmg" ]; then

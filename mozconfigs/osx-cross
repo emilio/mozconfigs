@@ -3,19 +3,12 @@ ac_add_options --target=x86_64-apple-darwin
 CROSS_BUILD=1
 
 # osx-cross contains:
-#  * https://github.com/phracker/MacOSX-SDKs
 #  * linux64-libdmg
-#  * linux64-cctools-port
 #  * linux64-hfsplus
-#  * linux64-binutils (might not be needed)
 
 CROSS="$MOZBUILD/osx-cross"
-CCTOOLS="$CROSS/cctools"
 
 export DSYMUTIL="$MOZBUILD/clang/bin/dsymutil"
-
-mk_add_options "export PATH=$CCTOOLS/bin:$PATH"
-mk_add_options "export LD_LIBRARY_PATH=$MOZBUILD/clang/lib:$CCTOOLS/lib"
 
 export HOST_CC="$MOZBUILD/clang/bin/clang"
 export HOST_CXX="$MOZBUILD/clang/bin/clang++"
@@ -23,6 +16,12 @@ export CC="$HOST_CC"
 export CXX="$HOST_CXX"
 
 # These are needed for packaging.
-export MKFSHFS="$CROSS/hfsplus/newfs_hfs"
-export DMG_TOOL="$CROSS/dmg/dmg"
-export HFS_TOOL="$CROSS/dmg/hfsplus"
+if [ -f "$CROSS/hfsplus/newfs_hfs"]; then
+  export MKFSHFS="$CROSS/hfsplus/newfs_hfs"
+fi
+if [ -f "$CROSS/dmg/dmg" ]; then
+  export DMG_TOOL="$CROSS/dmg/dmg"
+fi
+if [ -f "$CROSS/dmg/hfsplus" ]; then
+  export HFS_TOOL="$CROSS/dmg/hfsplus"
+fi

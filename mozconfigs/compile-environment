@@ -15,6 +15,9 @@ if [ -z $ARTIFACT_BUILD ]; then
   if [ -z $CACHE ]; then
     if command -v ccache >/dev/null; then
       ac_add_options --with-ccache=ccache
+      # See https://ccache.dev/manual/latest.html#_compiling_in_different_directories
+      mk_add_options 'export CCACHE_NOHASHDIR=1'
+      mk_add_options 'export CCACHE_BASEDIR=@TOPSRCDIR@'
     fi
   fi
 fi

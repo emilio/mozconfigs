@@ -58,4 +58,8 @@ fi
 
 ln -s "$CHECKOUT/.mozconfig$IDENTIFIER" "$CHECKOUT/.mozconfig"
 cat "$CHECKOUT/.mozconfig"
+# For ccache support across worktrees, see:
+# https://ccache.dev/manual/latest.html#_compiling_in_different_directories
+echo "hash_dir = false" > "$CHECKOUT/ccache.conf"
+echo "base_dir = $CHECKOUT" >> "$CHECKOUT/ccache.conf"
 "$CHECKOUT/mach" configure && "$CHECKOUT/mach" ide vscode --no-interactive && "$CHECKOUT/mach" ide zed --no-interactive

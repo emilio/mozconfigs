@@ -12,9 +12,9 @@ if [ -z $ARTIFACT_BUILD ]; then
       export HOST_CXX="$CXX"
     fi
   fi
-  if [ -z $CROSS_BUILD ]; then
-    if command -v mold >/dev/null; then
-      ac_add_options --enable-linker=mold
+  if [ -z $CACHE ]; then
+    if command -v ccache >/dev/null; then
+      ac_add_options --with-ccache=ccache
     fi
   fi
 fi

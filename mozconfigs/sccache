@@ -1,3 +1,4 @@
+CACHE=1
 SCCACHE_PATH="$MOZBUILD/sccache/sccache"
 if command -v cygpath >/dev/null; then
   SCCACHE_PATH="$(cygpath -w $SCCACHE_PATH)"

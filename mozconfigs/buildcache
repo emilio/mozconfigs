@@ -1,1 +1,2 @@
+CACHE=1
 ac_add_options --with-ccache=buildcache

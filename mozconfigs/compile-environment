@@ -18,6 +18,8 @@ if [ -z $ARTIFACT_BUILD ]; then
       # See https://ccache.dev/manual/latest.html#_compiling_in_different_directories
       mk_add_options 'export CCACHE_NOHASHDIR=1'
       mk_add_options 'export CCACHE_BASEDIR=@TOPSRCDIR@'
+      # This helps with warnings and so on.
+      mk_add_options 'export CCACHE_ABSSTDERR=1'
     fi
   fi
 fi

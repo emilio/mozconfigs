@@ -48,6 +48,12 @@ for modifier in $MODIFIERS compile-environment; do
   MOZCONFIG_CONTENT+="$NEWLINE"
 done
 
+if [ -f "$HOME/.config/buildwith/compile-environment-hook" ]; then
+  MOZCONFIG_CONTENT+=$(cat "$HOME/.config/buildwith/compile-environment-hook")
+  MOZCONFIG_CONTENT+="$NEWLINE"
+fi
+
+
 OBJDIR="$CHECKOUT/obj$IDENTIFIER"
 MOZCONFIG_CONTENT+="mk_add_options MOZ_OBJDIR=$OBJDIR"
 echo "$MOZCONFIG_CONTENT" > "$CHECKOUT/.mozconfig$IDENTIFIER"
